@@ -3,15 +3,13 @@ function is(value, type) {
 		if (typeof type !== 'string') {
 			type = typeOf(type)
 		}
-		if (types[type]) { // custom-types
-			return types[type](value)
+		if (is[type]) { // custom-types
+			return is[type](value)
 		}
 		return isType(value, type)
 	}
 	return typeOf(value)
 }
-
-var types = {}
 
 /** primitive-types **/
 is.boolean = function (value) {
@@ -60,20 +58,34 @@ is.element = function (value) {
 
 /* custom type */
 is.register = function (type, validator) {
+	if (validator == null) {
+		throw new Error('is.register(): `validator` must be defined.')
+	}
+
 	// functional validator
 	if (typeof validator === 'function') {
-		types[type] = validator
-		return
+		return is[type] = validator
 	}
 
 	// type match
 	if (typeof validator === 'string') {
-		types[type] = (value) => isType(value, validator)
-		return
+		return is[type] = function (value) {
+			return isType(value, validator)
+		}
+	}
+
+	// regexp
+	if (validator instanceof RegExp) {
+		return is[type] = function (value) {
+			if (typeof value !== 'string') return false
+			return value.match(validator) !== null
+		}
 	}
 
 	// instanceof
-	types[type] = (value) => value instanceof validator
+	return is[type] = function (value) {
+		return value instanceof validator
+	}
 }
 
 is.register('arraylike', (value) => {
