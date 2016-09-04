@@ -1,37 +1,31 @@
 # [Galactic.is(...)](js/is.js)
 
-#### Simple, fast type detection. No dependancies. Vanilla JS.
+### Simple, fast type detection. No dependancies. Vanilla JS.
 
-***
+### Galactic.is(...) has a simple API:
+```js
+Galactic.is(variable)
+Galactic.is(variable, expected)
+```
 
-#### Galactic.is(...) has a simple API:
+### You can detect the type of a variable:
+```js
+Galactic.is([]) === 'Array'
+Galactic.is(Date.now()) === 'Date'
+Galactic.is(document.createElement('span')) === 'HTMLSpanElement'
+Galactic.is(new SomeConstructor()) === 'SomeConstructor'
+```
 
-*Galactic.is(variable)*
+### Or ensure the input variable is of a specific type:
+```js
+Galactic.is(new Array, Array) // returns true
+Galactic.is(new Array, 'Array') // returns true
+Galactic.is(new Array, 'array') // returns true
+```
 
-*Galactic.is(variable, expected)*
+### Galactic.is(...) order of operations:
 
-***
-
-#### You can detect the type of a variable:
-* Galactic.is([]) === 'Array'
-* Galactic.is(Date.now()) === 'Date'
-* Galactic.is(document.createElement('span')) === 'HTMLSpanElement'
-* Galactic.is(new SomeConstructor()) === 'SomeConstructor'
-
-***
-
-#### Or ensure the input variable is of a specific type:
-* Galactic.is(new Array, Array) // returns true
-* Galactic.is(new Array, 'Array') // returns true
-* Galactic.is(new Array, 'array') // returns true
-
-***
-
-#### Galactic.is(...) order of operations:
-
-***
-
-##### Check #1 — 'custom-type'
+#### Check #1 — 'custom-type'
 
 ```js
 Galactic.is.register('MyConstructor', 'MyConstructor') // 'strict-type' validation
@@ -52,7 +46,7 @@ Galactic.is(document.body.childNodes, 'arrayish') // returns true
 
 ***
 
-##### Check #2 — 'base-type'
+#### Check #2 — 'base-type'
 
 ```js
 /* primitive-type */
@@ -76,7 +70,7 @@ Galactic.is(document.body.childNodes, 'arrayish') // returns true
 
 ***
 
-##### Check #3 — 'strict-type'
+#### Check #3 — 'strict-type'
 
 *Matches the value of `Object.prototype.toString.call(arg)`*
 
