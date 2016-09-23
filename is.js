@@ -115,9 +115,5 @@ function isType(value, type) {
 	return t === type || t.toLowerCase() === type
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-	module.exports = is
-} else {
-	self.Galactic || (self.Galactic = {})
-	Galactic.is = is
-}
+global.Galactic || (global.Galactic = {})
+global.Galactic.is = is
