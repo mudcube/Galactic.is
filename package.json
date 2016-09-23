@@ -2,7 +2,7 @@
   "name": "galactic.is",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "is.js",
   "author": "Michael Deal <hello@galactic.ink> (https://galactic.ink)",
   "license": "MIT",
   "repository": {
